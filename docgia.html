@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Quản lý độc giả</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Quản lý độc giả</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-<header class="topbar">
-    <div class="brand">📘 Mai Dịch Library</div>
-    <nav class="nav">
-        <a href="docgia.html" class="active">Độc giả</a>
-        <a href="sach.html">Sách</a>
-        <a href="phieumuon.html">Phiếu mượn trả</a>
-        <a href="baocao.html">Báo cáo</a>
-    </nav>
-</header>
+  <div class="sidebar">
+    <div>
+      <h2>Thư viện<br>Mai Dịch</h2>
+      <ul>
+        <li><a href="docgia.html" class="active"><i data-lucide="users"></i>Độc giả</a></li>
+        <li><a href="sach.html"><i data-lucide="book"></i>Sách</a></li>
+        <li><a href="phieumuon.html"><i data-lucide="clipboard-list"></i>Phiếu mượn</a></li>
+        <li><a href="baocao.html"><i data-lucide="bar-chart-3"></i>Báo cáo</a></li>
+      </ul>
+    </div>
+    <div class="logout"><i data-lucide="log-out"></i> Đăng xuất</div>
+  </div>
 
-<main class="container">
-    <h1>Quản lý thông tin độc giả</h1>
-    <table class="table">
-        <tr><th>Mã độc giả</th><th>Tên độc giả</th><th>Ngày sinh</th><th>Số điện thoại</th></tr>
-        <tr><td>DG01</td><td>Nguyễn Thị Hoa</td><td>12/03/2008</td><td>0987654321</td></tr>
-        <tr><td>DG02</td><td>Trần Minh Quân</td><td>20/09/2007</td><td>0912345678</td></tr>
+  <div class="main">
+    <h1>Quản lý độc giả</h1>
+    <div class="filter">
+      <input type="text" placeholder="Tìm theo tên hoặc mã độc giả...">
+      <button class="btn-filter">Tìm kiếm</button>
+      <button class="btn-add">+ Thêm độc giả</button>
+    </div>
+
+    <table>
+      <tr><th>Mã</th><th>Họ tên</th><th>Ngày sinh</th><th>Giới tính</th><th>Lớp/Chức vụ</th><th>SĐT</th></tr>
+      <tr><td>DG001</td><td>Nguyễn Văn A</td><td>12/03/2008</td><td>Nam</td><td>9A</td><td>0901234567</td></tr>
+      <tr><td>DG002</td><td>Trần Thị B</td><td>05/05/2009</td><td>Nữ</td><td>8B</td><td>0987654321</td></tr>
     </table>
-</main>
-
-<footer class="footer">© 2025 Trường THCS Mai Dịch</footer>
+  </div>
+  <script>lucide.createIcons();</script>
 </body>
 </html>
