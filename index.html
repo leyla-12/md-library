@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Trang chủ - Thư viện Mai Dịch</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Trang chủ - Thư viện Mai Dịch</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-<header class="topbar">
-    <div class="brand">📘 Mai Dịch Library</div>
-    <nav class="nav">
-        <a href="index.html" class="active">Trang chủ</a>
-        <a href="login.html">Đăng nhập</a>
-        <a href="docgia.html">Độc giả</a>
-        <a href="sach.html">Sách</a>
-        <a href="phieumuon.html">Phiếu mượn trả</a>
-        <a href="baocao.html">Báo cáo</a>
-    </nav>
-</header>
+  <div class="sidebar">
+    <div>
+      <h2>Thư viện<br>Mai Dịch</h2>
+      <ul>
+        <li><a href="docgia.html"><i data-lucide="users"></i>Quản lý độc giả</a></li>
+        <li><a href="sach.html"><i data-lucide="book"></i>Quản lý sách</a></li>
+        <li><a href="phieumuon.html"><i data-lucide="clipboard-list"></i>Phiếu mượn</a></li>
+        <li><a href="baocao.html"><i data-lucide="bar-chart-3"></i>Báo cáo thống kê</a></li>
+      </ul>
+    </div>
+    <div class="logout"><i data-lucide="log-out"></i> Đăng xuất</div>
+  </div>
 
-<main class="container">
-    <h1>Hệ thống thư viện trường THCS Mai Dịch</h1>
-    <p>Website mô phỏng chức năng quản lý độc giả, sách, phiếu mượn trả và báo cáo thống kê.</p>
-    <p><strong>Nhấn vào các mục phía trên</strong> để truy cập từng chức năng.</p>
-</main>
-
-<footer class="footer">© 2025 Trường THCS Mai Dịch - Lò Thị Tuyết Nhung, K59S1 TMU</footer>
+  <div class="main">
+    <h1>Hệ thống quản lý thư viện Mai Dịch</h1>
+    <p>
+      Hệ thống giúp thủ thư dễ dàng quản lý độc giả, đầu sách, phiếu mượn – trả và các báo cáo thống kê.
+      <br><br>
+      <strong>Mục tiêu:</strong> tự động hóa, giảm sai sót và nâng cao hiệu quả trong công tác quản lý thư viện nhà trường.
+    </p>
+  </div>
+  <script>lucide.createIcons();</script>
 </body>
 </html>
