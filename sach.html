@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Quản lý sách</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Quản lý sách</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-<header class="topbar">
-    <div class="brand">📘 Mai Dịch Library</div>
-    <nav class="nav">
-        <a href="docgia.html">Độc giả</a>
-        <a href="sach.html" class="active">Sách</a>
-        <a href="phieumuon.html">Phiếu mượn trả</a>
-        <a href="baocao.html">Báo cáo</a>
-    </nav>
-</header>
+  <div class="sidebar">
+    <div>
+      <h2>Thư viện<br>Mai Dịch</h2>
+      <ul>
+        <li><a href="docgia.html"><i data-lucide="users"></i>Độc giả</a></li>
+        <li><a href="sach.html" class="active"><i data-lucide="book"></i>Sách</a></li>
+        <li><a href="phieumuon.html"><i data-lucide="clipboard-list"></i>Phiếu mượn</a></li>
+        <li><a href="baocao.html"><i data-lucide="bar-chart-3"></i>Báo cáo</a></li>
+      </ul>
+    </div>
+    <div class="logout"><i data-lucide="log-out"></i> Đăng xuất</div>
+  </div>
 
-<main class="container">
-    <h1>Quản lý thông tin sách</h1>
-    <table class="table">
-        <tr><th>Mã sách</th><th>Tên sách</th><th>Tác giả</th><th>Thể loại</th></tr>
-        <tr><td>S01</td><td>Những người khốn khổ</td><td>Victor Hugo</td><td>Văn học</td></tr>
-        <tr><td>S02</td><td>1984</td><td>George Orwell</td><td>Chính trị - Xã hội</td></tr>
+  <div class="main">
+    <h1>Quản lý đầu sách</h1>
+    <div class="filter">
+      <input type="text" placeholder="Nhập tên hoặc mã sách...">
+      <button class="btn-filter">Tìm kiếm</button>
+      <button class="btn-add">+ Thêm sách mới</button>
+    </div>
+
+    <table>
+      <tr><th>Mã sách</th><th>Tên sách</th><th>Thể loại</th><th>Tác giả</th><th>Năm XB</th><th>Số lượng</th></tr>
+      <tr><td>S001</td><td>1984</td><td>Văn học</td><td>George Orwell</td><td>2020</td><td>12</td></tr>
+      <tr><td>S002</td><td>To Kill a Mockingbird</td><td>Tiểu thuyết</td><td>Harper Lee</td><td>2019</td><td>8</td></tr>
     </table>
-</main>
-
-<footer class="footer">© 2025 Trường THCS Mai Dịch</footer>
+  </div>
+  <script>lucide.createIcons();</script>
 </body>
 </html>
