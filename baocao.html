@@ -4,46 +4,78 @@
   <meta charset="UTF-8">
   <title>Báo cáo thống kê</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <div class="sidebar">
-    <div>
-      <h2>Thư viện<br>Mai Dịch</h2>
-      <ul>
-        <li><a href="docgia.html"><i data-lucide="users"></i>Độc giả</a></li>
-        <li><a href="sach.html"><i data-lucide="book"></i>Sách</a></li>
-        <li><a href="phieumuon.html"><i data-lucide="clipboard-list"></i>Phiếu mượn</a></li>
-        <li><a href="baocao.html" class="active"><i data-lucide="bar-chart-3"></i>Báo cáo</a></li>
-      </ul>
-    </div>
-    <div class="logout"><i data-lucide="log-out"></i> Đăng xuất</div>
+    <h2>Thư viện<br>Mai Dịch</h2>
+    <ul>
+      <li><a href="docgia.html">📘 Độc giả</a></li>
+      <li><a href="sach.html">📚 Sách</a></li>
+      <li><a href="phieumuon.html">📄 Phiếu mượn</a></li>
+      <li><a href="baocao.html" class="active">📊 Báo cáo</a></li>
+    </ul>
+    <div class="logout"><a href="index.html">↩ Đăng xuất</a></div>
   </div>
 
-  <div class="main">
-    <h1>Báo cáo thống kê mượn sách</h1>
-    <div class="filter">
-      <label>Từ ngày:</label><input type="date">
-      <label>Đến ngày:</label><input type="date">
-      <button class="btn-filter">Lọc</button>
-      <button class="btn-export">Xuất Excel</button>
+  <div class="main-content">
+    <h1 class="page-title">Báo cáo & thống kê</h1>
+    <p class="breadcrumb">Hệ thống &gt; Báo cáo</p>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <h4>Tổng sách đang được mượn</h4>
+        <p>35</p>
+      </div>
+      <div class="stat-box">
+        <h4>Độc giả mượn nhiều</h4>
+        <p>12</p>
+      </div>
+      <div class="stat-box">
+        <h4>Sách mượn nhiều nhất</h4>
+        <p>Harry Potter</p>
+      </div>
     </div>
 
-    <table>
-      <tr><th>Mã sách</th><th>Tên sách</th><th>Số lượt mượn</th></tr>
-      <tr><td>S001</td><td>Harry Potter</td><td>20</td></tr>
-      <tr><td>S002</td><td>To Kill a Mockingbird</td><td>15</td></tr>
-      <tfoot><tr><td colspan="2">Tổng cộng</td><td>35</td></tr></tfoot>
-    </table>
+    <div class="table-section">
+      <h3>Báo cáo sách đang được mượn</h3>
+      <div class="filter-bar">
+        <input type="date">
+        <input type="date">
+        <button class="btn">Lọc</button>
+        <button class="btn secondary">Xuất Excel</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Mã sách</th>
+            <th>Tên sách</th>
+            <th>Số lượt mượn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>S001</td><td>Harry Potter</td><td>20</td></tr>
+          <tr><td>S002</td><td>To Kill a Mockingbird</td><td>15</td></tr>
+          <tr><td>S003</td><td>1984</td><td>5</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-    <br>
-    <table>
-      <tr><th>Thể loại</th><th>Lượt mượn</th><th>Tỷ lệ</th></tr>
-      <tr><td>Văn học</td><td>25</td><td>71%</td></tr>
-      <tr><td>Khoa học</td><td>10</td><td>29%</td></tr>
-      <tfoot><tr><td>Tổng cộng</td><td>35</td><td>100%</td></tr></tfoot>
-    </table>
+    <div class="table-section">
+      <h3>Báo cáo độc giả mượn nhiều</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Mã độc giả</th>
+            <th>Họ tên</th>
+            <th>Số phiếu trong kỳ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>DG001</td><td>Nguyễn Minh An</td><td>4</td></tr>
+          <tr><td>DG005</td><td>Phạm Thu Bình</td><td>3</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <script>lucide.createIcons();</script>
 </body>
 </html>
