@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Báo cáo thống kê</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Báo cáo thống kê</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-<header class="topbar">
-    <div class="brand">📘 Mai Dịch Library</div>
-    <nav class="nav">
-        <a href="docgia.html">Độc giả</a>
-        <a href="sach.html">Sách</a>
-        <a href="phieumuon.html">Phiếu mượn trả</a>
-        <a href="baocao.html" class="active">Báo cáo</a>
-    </nav>
-</header>
+  <div class="sidebar">
+    <div>
+      <h2>Thư viện<br>Mai Dịch</h2>
+      <ul>
+        <li><a href="docgia.html"><i data-lucide="users"></i>Độc giả</a></li>
+        <li><a href="sach.html"><i data-lucide="book"></i>Sách</a></li>
+        <li><a href="phieumuon.html"><i data-lucide="clipboard-list"></i>Phiếu mượn</a></li>
+        <li><a href="baocao.html" class="active"><i data-lucide="bar-chart-3"></i>Báo cáo</a></li>
+      </ul>
+    </div>
+    <div class="logout"><i data-lucide="log-out"></i> Đăng xuất</div>
+  </div>
 
-<main class="container">
-    <h1>Báo cáo thống kê</h1>
-    <section>
-        <h2>Sách đang được mượn</h2>
-        <ul>
-            <li>Những người khốn khổ – 5 lượt mượn</li>
-            <li>1984 – 3 lượt mượn</li>
-        </ul>
-    </section>
-    <section>
-        <h2>Độc giả mượn nhiều</h2>
-        <ul>
-            <li>Nguyễn Văn A – 10 lượt</li>
-            <li>Trần Thị B – 7 lượt</li>
-        </ul>
-    </section>
-</main>
+  <div class="main">
+    <h1>Báo cáo thống kê mượn sách</h1>
+    <div class="filter">
+      <label>Từ ngày:</label><input type="date">
+      <label>Đến ngày:</label><input type="date">
+      <button class="btn-filter">Lọc</button>
+      <button class="btn-export">Xuất Excel</button>
+    </div>
 
-<footer class="footer">© 2025 Trường THCS Mai Dịch</footer>
+    <table>
+      <tr><th>Mã sách</th><th>Tên sách</th><th>Số lượt mượn</th></tr>
+      <tr><td>S001</td><td>Harry Potter</td><td>20</td></tr>
+      <tr><td>S002</td><td>To Kill a Mockingbird</td><td>15</td></tr>
+      <tfoot><tr><td colspan="2">Tổng cộng</td><td>35</td></tr></tfoot>
+    </table>
+
+    <br>
+    <table>
+      <tr><th>Thể loại</th><th>Lượt mượn</th><th>Tỷ lệ</th></tr>
+      <tr><td>Văn học</td><td>25</td><td>71%</td></tr>
+      <tr><td>Khoa học</td><td>10</td><td>29%</td></tr>
+      <tfoot><tr><td>Tổng cộng</td><td>35</td><td>100%</td></tr></tfoot>
+    </table>
+  </div>
+  <script>lucide.createIcons();</script>
 </body>
 </html>
