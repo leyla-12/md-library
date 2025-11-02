@@ -314,3 +314,70 @@ tbody tr {
   background: #e0f2fe;
   color: #0369a1;
 }
+/* Dashboard */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 18px;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+}
+.stat-card i {
+  color: #3b82f6;
+  background: #e0f2fe;
+  border-radius: 10px;
+  padding: 10px;
+}
+.stat-label {
+  color: #64748b;
+  font-size: 13px;
+}
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Chart bar */
+.chart-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  padding: 16px 20px;
+  margin-top: 18px;
+}
+.chart-bar {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bar {
+  background: #f1f5f9;
+  border-radius: 10px;
+  height: 22px;
+  overflow: hidden;
+}
+.bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg,#6faef7,#4a87d8);
+  color: #fff;
+  font-size: 12px;
+  line-height: 22px;
+  padding-left: 8px;
+}
+
+/* Badge màu */
+.badge.blue { background: #dbeafe; color: #1d4ed8; }
+.badge.green { background: #dcfce7; color: #15803d; }
+.badge.red { background: #fee2e2; color: #b91c1c; }
+
