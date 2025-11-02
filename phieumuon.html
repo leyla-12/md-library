@@ -2,118 +2,124 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Quản lý phiếu mượn - Thư viện Mai Dịch</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý phiếu mượn - Thư viện THCS Mai Dịch</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/3f55b9dd5f.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-circle">MD</div>
-      <div class="logo-text">
-        <span>THƯ VIỆN</span>
-        <strong>MAI DỊCH</strong>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <small>THƯ VIỆN</small>
+        <h1>Trường THCS Mai Dịch</h1>
       </div>
-    </div>
-    <nav>
-      <a href="docgia.html"><span>📘</span> Độc giả</a>
-      <a href="sach.html"><span>📚</span> Sách</a>
-      <a href="phieumuon.html" class="active"><span>📝</span> Phiếu mượn</a>
-      <a href="baocao.html"><span>📊</span> Báo cáo</a>
-    </nav>
-    <a href="index.html" class="logout-link">↩ Đăng xuất</a>
-  </aside>
+      <nav class="nav">
+        <a href="docgia.html"><i class="fa-solid fa-users"></i> Độc giả</a>
+        <a href="sach.html"><i class="fa-solid fa-book"></i> Sách</a>
+        <a href="phieumuon.html" class="active"><i class="fa-solid fa-file-lines"></i> Phiếu mượn</a>
+        <a href="baocao.html"><i class="fa-solid fa-chart-line"></i> Báo cáo</a>
+      </nav>
+      <a href="index.html" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+    </aside>
 
-  <main class="main-content">
-    <header class="page-header">
-      <div>
-        <h2>Quản lý phiếu mượn - trả</h2>
-        <p>Hệ thống &gt; Phiếu mượn</p>
-      </div>
-    </header>
+    <main class="main">
+      <h2 class="page-title">Quản lý phiếu mượn - trả</h2>
+      <p class="breadcrumb">Hệ thống &gt; Phiếu mượn</p>
 
-    <section class="toolbar">
-      <div class="search-group">
-        <input type="text" id="searchPM" placeholder="Tìm theo mã phiếu hoặc tên độc giả..." />
-        <button class="btn" onclick="searchTable('pmTable','searchPM',1)">🔍 Tìm kiếm</button>
-      </div>
-      <div class="filter-group">
-        <select id="ttFilter" onchange="filterByStatus()">
-          <option value="all">Tất cả trạng thái</option>
-          <option value="dangmuon">Đang mượn</option>
-          <option value="datra">Đã trả</option>
-          <option value="quahan">Quá hạn</option>
-        </select>
-        <button class="btn primary-btn" onclick="openModal('modalPM')">+ Lập phiếu mượn</button>
-      </div>
-    </section>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Danh sách phiếu mượn</h3>
+          <div class="filters">
+            <div class="input-group">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input id="searchPM" type="text" class="input" placeholder="Tìm mã phiếu / mã ĐG / tên độc giả">
+            </div>
+            <button class="btn btn-light" onclick="searchPM()">Tìm</button>
+            <select id="filterTT" onchange="filterPM()">
+              <option value="">Tất cả trạng thái</option>
+              <option value="Đang mượn">Đang mượn</option>
+              <option value="Đã trả">Đã trả</option>
+              <option value="Quá hạn">Quá hạn</option>
+            </select>
+            <button class="btn btn-primary" onclick="openModal('modalPM')"><i class="fa-solid fa-plus"></i> Lập phiếu mượn</button>
+          </div>
+        </div>
 
-    <section class="card">
-      <table class="data-table" id="pmTable">
-        <thead>
-          <tr>
-            <th>Mã phiếu</th>
-            <th>Độc giả</th>
-            <th>Ngày mượn</th>
-            <th>Hạn trả</th>
-            <th>Trạng thái</th>
-            <th>Sách mượn</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-tt="dangmuon">
-            <td>PM001</td>
-            <td>Nguyễn Minh An (DG001)</td>
-            <td>2025-11-01</td>
-            <td>2025-11-10</td>
-            <td><span class="badge warning">Đang mượn</span></td>
-            <td>S001, S003</td>
-            <td>
-              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
-            </td>
-          </tr>
-          <tr data-tt="datra">
-            <td>PM002</td>
-            <td>Trần Thu Hà (DG002)</td>
-            <td>2025-10-15</td>
-            <td>2025-10-25</td>
-            <td><span class="badge success">Đã trả</span></td>
-            <td>S002</td>
-            <td>
-              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
-            </td>
-          </tr>
-          <tr data-tt="quahan">
-            <td>PM003</td>
-            <td>Phạm Gia Huy (DG003)</td>
-            <td>2025-10-20</td>
-            <td>2025-10-27</td>
-            <td><span class="badge danger-badge">Quá hạn</span></td>
-            <td>S001</td>
-            <td>
-              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
-
-  <!-- modal phiếu mượn -->
-  <div class="modal" id="modalPM">
-    <div class="modal-content">
-      <h3>Lập phiếu mượn</h3>
-      <input type="text" id="mp" placeholder="Mã phiếu" />
-      <input type="text" id="dgpm" placeholder="Mã độc giả / tên độc giả" />
-      <input type="date" id="ngaymuon" />
-      <input type="date" id="hantra" />
-      <input type="text" id="sachmuon" placeholder="Mã sách mượn (cách nhau dấu phẩy)" />
-      <div class="modal-actions">
-        <button class="btn" onclick="closeModal('modalPM')">Hủy</button>
-        <button class="btn primary-btn" onclick="addPM()">Lưu</button>
+        <div class="table-wrapper">
+          <table id="tablePM">
+            <thead>
+              <tr>
+                <th>Mã phiếu</th>
+                <th>Độc giả</th>
+                <th>Ngày mượn</th>
+                <th>Hạn trả</th>
+                <th>Tình trạng</th>
+                <th>Ghi chú</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PM001</td>
+                <td>DG001 - Nguyễn Minh An</td>
+                <td>2025-11-01</td>
+                <td>2025-11-15</td>
+                <td><span class="badge">Đang mượn</span></td>
+                <td>Mượn 2 quyển</td>
+                <td class="actions">
+                  <button class="btn-icon btn-edit" onclick="editRow(this,'pm')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>PM002</td>
+                <td>DG002 - Trần Thu Hà</td>
+                <td>2025-10-28</td>
+                <td>2025-11-10</td>
+                <td><span class="badge" style="background:rgba(22,163,74,.14);color:#166534;">Đã trả</span></td>
+                <td>Trả đủ</td>
+                <td class="actions">
+                  <button class="btn-icon btn-edit" onclick="editRow(this,'pm')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>PM003</td>
+                <td>DGGV01 - Đỗ Thị Lan</td>
+                <td>2025-10-25</td>
+                <td>2025-11-05</td>
+                <td><span class="badge" style="background:rgba(248,113,113,.1);color:#b91c1c;">Quá hạn</span></td>
+                <td>Thiếu 1 sách</td>
+                <td class="actions">
+                  <button class="btn-icon btn-edit" onclick="editRow(this,'pm')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+
+      <!-- modal lập phiếu -->
+      <div class="modal" id="modalPM">
+        <div class="modal-body">
+          <h3 class="modal-title">Lập phiếu mượn</h3>
+          <div class="form-grid">
+            <div class="form-group"><label>Mã phiếu</label><input id="pm_ma" type="text" placeholder="VD: PM010"></div>
+            <div class="form-group"><label>Mã độc giả</label><input id="pm_dg" type="text" placeholder="VD: DG001"></div>
+            <div class="form-group"><label>Ngày mượn</label><input id="pm_nm" type="date"></div>
+            <div class="form-group"><label>Hạn trả</label><input id="pm_ht" type="date"></div>
+            <div class="form-group"><label>Tình trạng</label><select id="pm_tt"><option>Đang mượn</option><option>Đã trả</option><option>Quá hạn</option></select></div>
+            <div class="form-group"><label>Ghi chú</label><input id="pm_gc" type="text" placeholder="VD: mượn 3 quyển..."></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" onclick="closeModal('modalPM')">Hủy</button>
+            <button class="btn btn-primary" onclick="addPM()">Lưu</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
   </div>
 
   <script src="script.js"></script>
