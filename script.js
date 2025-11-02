@@ -1,139 +1,160 @@
 // mở / đóng modal
-function openModal(id) {
-  document.getElementById(id).style.display = "flex";
-}
-function closeModal(id) {
-  document.getElementById(id).style.display = "none";
+function openModal(id){ document.getElementById(id).classList.add('show'); }
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+
+// xoá dòng
+function deleteRow(btn){
+  if(confirm("Bạn có chắc muốn xóa bản ghi này?")) btn.closest('tr').remove();
 }
 
-// xóa dòng
-function deleteRow(btn) {
-  if (confirm("Bạn chắc chắn muốn xóa dòng này?")) {
-    btn.closest("tr").remove();
-  }
+// demo sửa
+function editRow(btn, type){
+  alert("Demo cập nhật " + (type || "bản ghi") + ". Khi nộp bài bạn mô tả: nhấn Sửa sẽ mở form cập nhật.");
 }
 
-// sửa dòng (demo: chỉ alert)
-function editRow(btn) {
-  alert("Đây là giao diện tĩnh demo. Khi làm thật bạn sẽ mở form sửa ở đây.");
-}
-
-// tìm kiếm theo ô input
-function searchTable(tableId, inputId, colIndex) {
-  const input = document.getElementById(inputId).value.toLowerCase();
-  const rows = document.querySelectorAll(`#${tableId} tbody tr`);
-  rows.forEach((row) => {
-    const text =
-      row.cells[0].innerText.toLowerCase() +
-      " " +
-      row.cells[colIndex].innerText.toLowerCase();
-    row.style.display = text.includes(input) ? "" : "none";
+/* ====== ĐỘC GIẢ ====== */
+function searchDG(){
+  const key = document.getElementById('searchDG')?.value?.toLowerCase() || "";
+  document.querySelectorAll('#tableDG tbody tr').forEach(r=>{
+    r.style.display = r.innerText.toLowerCase().includes(key) ? '' : 'none';
   });
 }
 
-// lọc theo lớp (độc giả)
-function filterByClass() {
-  const val = document.getElementById("lopFilter").value;
-  const rows = document.querySelectorAll("#docgiaTable tbody tr");
-  rows.forEach((row) => {
-    const lop = row.getAttribute("data-lop");
-    row.style.display = val === "all" || lop === val ? "" : "none";
+function filterDG(){
+  const lop = document.getElementById('filterLop')?.value?.toLowerCase() || "";
+  const cv = document.getElementById('filterCV')?.value?.toLowerCase() || "";
+  document.querySelectorAll('#tableDG tbody tr').forEach(r=>{
+    const lopVal = r.children[7].innerText.toLowerCase();
+    const cvVal = r.children[8].innerText.toLowerCase();
+    const okLop = !lop || lopVal === lop;
+    const okCV = !cv || cvVal === cv;
+    r.style.display = okLop && okCV ? '' : 'none';
   });
 }
 
-// lọc theo thể loại (sách)
-function filterByCategory() {
-  const val = document.getElementById("theloaiFilter").value;
-  const rows = document.querySelectorAll("#sachTable tbody tr");
-  rows.forEach((row) => {
-    const tl = row.getAttribute("data-tl");
-    row.style.display = val === "all" || tl === val ? "" : "none";
-  });
-}
+function addDocGia(){
+  const ma = dg_ma.value || 'DGNEW';
+  const ten = dg_ten.value || 'Chưa có tên';
+  const gt = dg_gt.value;
+  const ns = dg_ns.value;
+  const dc = dg_dc.value;
+  const sdt = dg_sdt.value;
+  const cccd = dg_cccd.value;
+  const lop = dg_lop.value || '—';
+  const cv = dg_cv.value;
 
-// lọc theo trạng thái (phiếu mượn)
-function filterByStatus() {
-  const val = document.getElementById("ttFilter").value;
-  const rows = document.querySelectorAll("#pmTable tbody tr");
-  rows.forEach((row) => {
-    const tt = row.getAttribute("data-tt");
-    row.style.display = val === "all" || tt === val ? "" : "none";
-  });
-}
-
-// thêm độc giả demo
-function addDocGia() {
-  const mdg = document.getElementById("mdg").value || "DGNEW";
-  const ht = document.getElementById("ht").value || "Độc giả mới";
-  const lop = document.getElementById("lop").value || "9A1";
-
-  const tbody = document.querySelector("#docgiaTable tbody");
-  const tr = document.createElement("tr");
-  tr.setAttribute("data-lop", lop);
+  const tbody = document.querySelector('#tableDG tbody');
+  const tr = document.createElement('tr');
   tr.innerHTML = `
-    <td>${mdg}</td>
-    <td>${ht}</td>
-    <td>Nam</td>
-    <td>2010-01-01</td>
-    <td>--</td>
-    <td>--</td>
-    <td>--</td>
+    <td>${ma}</td>
+    <td>${ten}</td>
+    <td>${gt}</td>
+    <td>${ns}</td>
+    <td>${dc}</td>
+    <td>${sdt}</td>
+    <td>${cccd}</td>
     <td>${lop}</td>
-    <td>
-      <button class="link-btn" onclick="editRow(this)">Sửa</button>
-      <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
+    <td>${cv}</td>
+    <td class="actions">
+      <button class="btn-icon btn-edit" onclick="editRow(this,'dg')"><i class="fa-solid fa-pen"></i></button>
+      <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
     </td>
   `;
   tbody.appendChild(tr);
-  closeModal("modalDocGia");
+  closeModal('modalDG');
 }
 
-// thêm sách demo
-function addSach() {
-  const ms = document.getElementById("ms").value || "SNEW";
-  const ts = document.getElementById("ts").value || "Sách mới";
-  const tl = document.getElementById("tl").value || "Văn học";
+/* ====== SÁCH ====== */
+function searchSach(){
+  const key = document.getElementById('searchSach').value.toLowerCase();
+  document.querySelectorAll('#tableSach tbody tr').forEach(r=>{
+    r.style.display = r.innerText.toLowerCase().includes(key) ? '' : 'none';
+  });
+}
 
-  const tbody = document.querySelector("#sachTable tbody");
-  const tr = document.createElement("tr");
-  tr.setAttribute("data-tl", tl);
+function filterSach(){
+  const tl = document.getElementById('filterTL').value.toLowerCase();
+  document.querySelectorAll('#tableSach tbody tr').forEach(r=>{
+    const val = r.children[2].innerText.toLowerCase();
+    r.style.display = !tl || val === tl ? '' : 'none';
+  });
+}
+
+function addSach(){
+  const ma = s_ma.value || 'SNEW';
+  const ten = s_ten.value || 'Chưa đặt tên';
+  const tl = s_tl.value || 'Khác';
+  const nam = s_nam.value || '';
+  const nxb = s_nxb.value || '';
+  const tg = s_tg.value || '';
+  const sl = s_sl.value || '0';
+
+  const tbody = document.querySelector('#tableSach tbody');
+  const tr = document.createElement('tr');
   tr.innerHTML = `
-    <td>${ms}</td>
-    <td>${ts}</td>
+    <td>${ma}</td>
+    <td>${ten}</td>
     <td>${tl}</td>
-    <td>2025</td>
-    <td>NXB</td>
-    <td>Tác giả</td>
-    <td>5</td>
-    <td>
-      <button class="link-btn" onclick="editRow(this)">Sửa</button>
-      <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
+    <td>${nam}</td>
+    <td>${nxb}</td>
+    <td>${tg}</td>
+    <td>${sl}</td>
+    <td class="actions">
+      <button class="btn-icon btn-edit" onclick="editRow(this,'sach')"><i class="fa-solid fa-pen"></i></button>
+      <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
     </td>
   `;
   tbody.appendChild(tr);
-  closeModal("modalSach");
+  closeModal('modalSach');
 }
 
-// thêm phiếu mượn demo
-function addPM() {
-  const mp = document.getElementById("mp").value || "PMNEW";
-  const dg = document.getElementById("dgpm").value || "Độc giả mới";
-  const nm = document.getElementById("ngaymuon").value || "2025-11-02";
-  const ht = document.getElementById("hantra").value || "2025-11-10";
-  const sm = document.getElementById("sachmuon").value || "S001";
+/* ====== PHIẾU MƯỢN ====== */
+function searchPM(){
+  const key = document.getElementById('searchPM').value.toLowerCase();
+  document.querySelectorAll('#tablePM tbody tr').forEach(r=>{
+    r.style.display = r.innerText.toLowerCase().includes(key) ? '' : 'none';
+  });
+}
 
-  const tbody = document.querySelector("#pmTable tbody");
-  const tr = document.createElement("tr");
-  tr.setAttribute("data-tt", "dangmuon");
+function filterPM(){
+  const tt = document.getElementById('filterTT').value.toLowerCase();
+  document.querySelectorAll('#tablePM tbody tr').forEach(r=>{
+    const val = r.children[4].innerText.toLowerCase();
+    r.style.display = !tt || val.includes(tt) ? '' : 'none';
+  });
+}
+
+function addPM(){
+  const ma = pm_ma.value || 'PMNEW';
+  const dg = pm_dg.value || 'Không rõ';
+  const nm = pm_nm.value || '';
+  const ht = pm_ht.value || '';
+  const tt = pm_tt.value;
+  const gc = pm_gc.value || '';
+
+  const tbody = document.querySelector('#tablePM tbody');
+  const tr = document.createElement('tr');
   tr.innerHTML = `
-    <td>${mp}</td>
+    <td>${ma}</td>
     <td>${dg}</td>
     <td>${nm}</td>
     <td>${ht}</td>
-    <td><span class="badge warning">Đang mượn</span></td>
-    <td>${sm}</td>
-    <td><button class="link-btn danger" onclick="deleteRow(this)">Xóa</button></td>
+    <td><span class="badge">${tt}</span></td>
+    <td>${gc}</td>
+    <td class="actions">
+      <button class="btn-icon btn-edit" onclick="editRow(this,'pm')"><i class="fa-solid fa-pen"></i></button>
+      <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+    </td>
   `;
   tbody.appendChild(tr);
-  closeModal("modalPM");
+  closeModal('modalPM');
+}
+
+/* ====== BÁO CÁO ====== */
+function filterBC(){
+  const type = document.getElementById('bc_loai').value;
+  document.querySelectorAll('#tableBC tbody tr').forEach(r=>{
+    const status = r.dataset.status;
+    r.style.display = (type === 'all' || status === type) ? '' : 'none';
+  });
 }
