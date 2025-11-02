@@ -2,148 +2,145 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Quản lý độc giả - Thư viện Mai Dịch</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý độc giả - Thư viện THCS Mai Dịch</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/3f55b9dd5f.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-circle">MD</div>
-      <div class="logo-text">
-        <span>THƯ VIỆN</span>
-        <strong>MAI DỊCH</strong>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <small>THƯ VIỆN</small>
+        <h1>Trường THCS Mai Dịch</h1>
       </div>
-    </div>
-    <nav>
-      <a href="docgia.html" class="active"><span>📘</span> Độc giả</a>
-      <a href="sach.html"><span>📚</span> Sách</a>
-      <a href="phieumuon.html"><span>📝</span> Phiếu mượn</a>
-      <a href="baocao.html"><span>📊</span> Báo cáo</a>
-    </nav>
-    <a href="index.html" class="logout-link">↩ Đăng xuất</a>
-  </aside>
+      <nav class="nav">
+        <a href="docgia.html" class="active"><i class="fa-solid fa-users"></i> Độc giả</a>
+        <a href="sach.html"><i class="fa-solid fa-book"></i> Sách</a>
+        <a href="phieumuon.html"><i class="fa-solid fa-file-lines"></i> Phiếu mượn</a>
+        <a href="baocao.html"><i class="fa-solid fa-chart-line"></i> Báo cáo</a>
+      </nav>
+      <a href="index.html" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+    </aside>
 
-  <!-- main -->
-  <main class="main-content">
-    <header class="page-header">
-      <div>
-        <h2>Quản lý thông tin độc giả</h2>
-        <p>Hệ thống &gt; Độc giả</p>
-      </div>
-      <div class="user-chip">👩‍💼 Thủ thư: Nguyễn Hoa</div>
-    </header>
+    <main class="main">
+      <h2 class="page-title">Quản lý thông tin độc giả</h2>
+      <p class="breadcrumb">Hệ thống &gt; Độc giả</p>
 
-    <section class="toolbar">
-      <div class="search-group">
-        <input type="text" id="searchDocGia" placeholder="Tìm theo tên / mã độc giả..." />
-        <button class="btn" onclick="searchTable('docgiaTable','searchDocGia', 1)">🔍 Tìm kiếm</button>
-      </div>
-      <div class="filter-group">
-        <select id="lopFilter" onchange="filterByClass()">
-          <option value="all">Tất cả lớp</option>
-          <option value="6A1">6A1</option>
-          <option value="7A2">7A2</option>
-          <option value="8B2">8B2</option>
-          <option value="9A1">9A1</option>
-        </select>
-        <button class="btn primary-btn" onclick="openModal('modalDocGia')">+ Thêm độc giả</button>
-      </div>
-    </section>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Danh sách độc giả</h3>
+          <div class="filters">
+            <div class="input-group">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input id="searchDG" type="text" class="input" placeholder="Tìm tên / mã / SĐT">
+            </div>
+            <button class="btn btn-light" onclick="searchDG()">Tìm</button>
+            <select id="filterLop" onchange="filterDG()">
+              <option value="">Tất cả lớp</option>
+              <option value="6A1">6A1</option>
+              <option value="7A2">7A2</option>
+              <option value="8B2">8B2</option>
+              <option value="9A1">9A1</option>
+            </select>
+            <select id="filterCV" onchange="filterDG()">
+              <option value="">Tất cả chức vụ</option>
+              <option value="Học sinh">Học sinh</option>
+              <option value="Giáo viên">Giáo viên</option>
+            </select>
+            <button class="btn btn-primary" onclick="openModal('modalDG')"><i class="fa-solid fa-plus"></i> Thêm độc giả</button>
+          </div>
+        </div>
 
-    <section class="card">
-      <table class="data-table" id="docgiaTable">
-        <thead>
-          <tr>
-            <th>Mã ĐG</th>
-            <th>Họ tên</th>
-            <th>Giới tính</th>
-            <th>Ngày sinh</th>
-            <th>Địa chỉ</th>
-            <th>SĐT</th>
-            <th>CCCD</th>
-            <th>Lớp / Chức vụ</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-lop="9A1">
-            <td>DG001</td>
-            <td>Nguyễn Minh An</td>
-            <td>Nam</td>
-            <td>2008-05-14</td>
-            <td>Cầu Giấy</td>
-            <td>0987111222</td>
-            <td>0123456789</td>
-            <td>9A1</td>
-            <td>
-              <button class="link-btn" onclick="editRow(this)">Sửa</button>
-              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
-            </td>
-          </tr>
-          <tr data-lop="8B2">
-            <td>DG002</td>
-            <td>Trần Thu Hà</td>
-            <td>Nữ</td>
-            <td>2009-01-22</td>
-            <td>Mai Dịch</td>
-            <td>0905123456</td>
-            <td>0999888777</td>
-            <td>8B2</td>
-            <td>
-              <button class="link-btn" onclick="editRow(this)">Sửa</button>
-              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
-            </td>
-          </tr>
-          <tr data-lop="6A1">
-            <td>DG003</td>
-            <td>Phạm Gia Huy</td>
-            <td>Nam</td>
-            <td>2011-09-02</td>
-            <td>Cầu Giấy</td>
-            <td>0912345678</td>
-            <td>0123012301</td>
-            <td>6A1</td>
-            <td>
-              <button class="link-btn" onclick="editRow(this)">Sửa</button>
-              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
-            </td>
-          </tr>
-          <tr data-lop="7A2">
-            <td>DG004</td>
-            <td>Đỗ Mỹ Lan</td>
-            <td>Nữ</td>
-            <td>2010-04-10</td>
-            <td>Nam Từ Liêm</td>
-            <td>0987666555</td>
-            <td>0888999777</td>
-            <td>7A2</td>
-            <td>
-              <button class="link-btn" onclick="editRow(this)">Sửa</button>
-              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
-
-  <!-- modal thêm độc giả -->
-  <div class="modal" id="modalDocGia">
-    <div class="modal-content">
-      <h3>Thêm độc giả</h3>
-      <label>Mã độc giả</label>
-      <input type="text" id="mdg" placeholder="VD: DG005" />
-      <label>Họ tên</label>
-      <input type="text" id="ht" placeholder="Họ và tên" />
-      <label>Lớp / Chức vụ</label>
-      <input type="text" id="lop" placeholder="VD: 8B2 / Giáo viên" />
-      <div class="modal-actions">
-        <button class="btn" onclick="closeModal('modalDocGia')">Hủy</button>
-        <button class="btn primary-btn" onclick="addDocGia()">Lưu</button>
+        <div class="table-wrapper">
+          <table id="tableDG">
+            <thead>
+              <tr>
+                <th>Mã ĐG</th>
+                <th>Họ tên</th>
+                <th>Giới tính</th>
+                <th>Ngày sinh</th>
+                <th>Địa chỉ</th>
+                <th>SĐT</th>
+                <th>CCCD</th>
+                <th>Lớp</th>
+                <th>Chức vụ</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>DG001</td>
+                <td>Nguyễn Minh An</td>
+                <td>Nam</td>
+                <td>2008-05-14</td>
+                <td>Cầu Giấy</td>
+                <td>0987111222</td>
+                <td>0123456789</td>
+                <td>9A1</td>
+                <td>Học sinh</td>
+                <td class="actions">
+                  <button class="btn-icon btn-edit" onclick="editRow(this,'dg')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>DG002</td>
+                <td>Trần Thu Hà</td>
+                <td>Nữ</td>
+                <td>2009-01-22</td>
+                <td>Mai Dịch</td>
+                <td>0905123456</td>
+                <td>0999888777</td>
+                <td>8B2</td>
+                <td>Học sinh</td>
+                <td class="actions">
+                  <button class="btn-icon btn-edit" onclick="editRow(this,'dg')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <!-- độc giả giáo viên -->
+              <tr>
+                <td>DGGV01</td>
+                <td>Đỗ Thị Lan</td>
+                <td>Nữ</td>
+                <td>1989-02-08</td>
+                <td>Cầu Giấy</td>
+                <td>0912333444</td>
+                <td>0123456766</td>
+                <td>—</td>
+                <td>Giáo viên</td>
+                <td class="actions">
+                  <button class="btn-icon btn-edit" onclick="editRow(this,'dg')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+
+      <!-- Modal thêm độc giả -->
+      <div class="modal" id="modalDG">
+        <div class="modal-body">
+          <h3 class="modal-title">Thêm độc giả</h3>
+          <div class="form-grid">
+            <div class="form-group"><label>Mã độc giả</label><input id="dg_ma" type="text" placeholder="VD: DG010"></div>
+            <div class="form-group"><label>Họ tên</label><input id="dg_ten" type="text"></div>
+            <div class="form-group"><label>Giới tính</label><select id="dg_gt"><option>Nam</option><option>Nữ</option></select></div>
+            <div class="form-group"><label>Ngày sinh</label><input id="dg_ns" type="date"></div>
+            <div class="form-group"><label>Địa chỉ</label><input id="dg_dc" type="text"></div>
+            <div class="form-group"><label>SĐT</label><input id="dg_sdt" type="text" placeholder="09..."></div>
+            <div class="form-group"><label>CCCD</label><input id="dg_cccd" type="text"></div>
+            <div class="form-group"><label>Lớp</label><input id="dg_lop" type="text" placeholder="VD: 9A1 hoặc để trống nếu GV"></div>
+            <div class="form-group"><label>Chức vụ</label><select id="dg_cv"><option>Học sinh</option><option>Giáo viên</option></select></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" onclick="closeModal('modalDG')">Hủy</button>
+            <button class="btn btn-primary" onclick="addDocGia()">Lưu</button>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 
   <script src="script.js"></script>
