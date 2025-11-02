@@ -2,123 +2,129 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Quản lý sách - Thư viện Mai Dịch</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý sách - Thư viện THCS Mai Dịch</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/3f55b9dd5f.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-circle">MD</div>
-      <div class="logo-text">
-        <span>THƯ VIỆN</span>
-        <strong>MAI DỊCH</strong>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <small>THƯ VIỆN</small>
+        <h1>Trường THCS Mai Dịch</h1>
       </div>
-    </div>
-    <nav>
-      <a href="docgia.html"><span>📘</span> Độc giả</a>
-      <a href="sach.html" class="active"><span>📚</span> Sách</a>
-      <a href="phieumuon.html"><span>📝</span> Phiếu mượn</a>
-      <a href="baocao.html"><span>📊</span> Báo cáo</a>
-    </nav>
-    <a href="index.html" class="logout-link">↩ Đăng xuất</a>
-  </aside>
+      <nav class="nav">
+        <a href="docgia.html"><i class="fa-solid fa-users"></i> Độc giả</a>
+        <a href="sach.html" class="active"><i class="fa-solid fa-book"></i> Sách</a>
+        <a href="phieumuon.html"><i class="fa-solid fa-file-lines"></i> Phiếu mượn</a>
+        <a href="baocao.html"><i class="fa-solid fa-chart-line"></i> Báo cáo</a>
+      </nav>
+      <a href="index.html" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+    </aside>
 
-  <main class="main-content">
-    <header class="page-header">
-      <div>
-        <h2>Quản lý thông tin sách</h2>
-        <p>Hệ thống &gt; Sách</p>
-      </div>
-    </header>
+    <main class="main">
+      <h2 class="page-title">Quản lý sách</h2>
+      <p class="breadcrumb">Hệ thống &gt; Sách</p>
 
-    <section class="toolbar">
-      <div class="search-group">
-        <input type="text" id="searchSach" placeholder="Tìm theo tên sách / mã sách..." />
-        <button class="btn" onclick="searchTable('sachTable','searchSach',1)">🔍 Tìm kiếm</button>
-      </div>
-      <div class="filter-group">
-        <select id="theloaiFilter" onchange="filterByCategory()">
-          <option value="all">Tất cả thể loại</option>
-          <option value="Văn học">Văn học</option>
-          <option value="Khoa học">Khoa học</option>
-          <option value="Thiếu nhi">Thiếu nhi</option>
-        </select>
-        <button class="btn primary-btn" onclick="openModal('modalSach')">+ Thêm sách</button>
-      </div>
-    </section>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Danh mục sách</h3>
+          <div class="filters">
+            <div class="input-group">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input id="searchSach" type="text" class="input" placeholder="Tìm tên sách / mã / tác giả">
+            </div>
+            <button class="btn btn-light" onclick="searchSach()">Tìm</button>
+            <select id="filterTL" onchange="filterSach()">
+              <option value="">Tất cả thể loại</option>
+              <option value="Văn học">Văn học</option>
+              <option value="Toán">Toán</option>
+              <option value="Khoa học">Khoa học</option>
+            </select>
+            <button class="btn btn-primary" onclick="openModal('modalSach')"><i class="fa-solid fa-plus"></i> Thêm sách</button>
+          </div>
+        </div>
 
-    <section class="card">
-      <table class="data-table" id="sachTable">
-        <thead>
-          <tr>
-            <th>Mã sách</th>
-            <th>Tên sách</th>
-            <th>Thể loại</th>
-            <th>Năm XB</th>
-            <th>NXB</th>
-            <th>Tác giả</th>
-            <th>Số lượng</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-tl="Văn học">
-            <td>S001</td>
-            <td>Harry Potter</td>
-            <td>Văn học</td>
-            <td>2010</td>
-            <td>NXB Trẻ</td>
-            <td>J. K. Rowling</td>
-            <td>10</td>
-            <td>
-              <button class="link-btn" onclick="editRow(this)">Sửa</button>
-              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
-            </td>
-          </tr>
-          <tr data-tl="Khoa học">
-            <td>S002</td>
-            <td>Vũ trụ quanh ta</td>
-            <td>Khoa học</td>
-            <td>2018</td>
-            <td>GDVN</td>
-            <td>Stephen Hawking</td>
-            <td>6</td>
-            <td>
-              <button class="link-btn" onclick="editRow(this)">Sửa</button>
-              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
-            </td>
-          </tr>
-          <tr data-tl="Thiếu nhi">
-            <td>S003</td>
-            <td>Những tấm lòng cao cả</td>
-            <td>Thiếu nhi</td>
-            <td>2005</td>
-            <td>Kim Đồng</td>
-            <td>Edmondo De Amicis</td>
-            <td>12</td>
-            <td>
-              <button class="link-btn" onclick="editRow(this)">Sửa</button>
-              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
-
-  <!-- modal thêm sách -->
-  <div class="modal" id="modalSach">
-    <div class="modal-content">
-      <h3>Thêm sách</h3>
-      <input type="text" id="ms" placeholder="Mã sách" />
-      <input type="text" id="ts" placeholder="Tên sách" />
-      <input type="text" id="tl" placeholder="Thể loại" />
-      <div class="modal-actions">
-        <button class="btn" onclick="closeModal('modalSach')">Hủy</button>
-        <button class="btn primary-btn" onclick="addSach()">Lưu</button>
+        <div class="table-wrapper">
+          <table id="tableSach">
+            <thead>
+              <tr>
+                <th>Mã sách</th>
+                <th>Tên sách</th>
+                <th>Thể loại</th>
+                <th>Năm XB</th>
+                <th>NXB</th>
+                <th>Tác giả</th>
+                <th>Số lượng</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>S001</td>
+                <td>Văn học 6 - Tập 1</td>
+                <td>Văn học</td>
+                <td>2022</td>
+                <td>GDVN</td>
+                <td>Nhiều tác giả</td>
+                <td>25</td>
+                <td class="actions">
+                  <button class="btn-icon btn-edit" onclick="editRow(this,'sach')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>S002</td>
+                <td>Bài tập Toán 7</td>
+                <td>Toán</td>
+                <td>2023</td>
+                <td>GDVN</td>
+                <td>Bộ GD</td>
+                <td>16</td>
+                <td class="actions">
+                  <button class="btn-icon btn-edit" onclick="editRow(this,'sach')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>S003</td>
+                <td>Khám phá khoa học</td>
+                <td>Khoa học</td>
+                <td>2021</td>
+                <td>NXB Trẻ</td>
+                <td>Nguyễn Thành</td>
+                <td>10</td>
+                <td class="actions">
+                  <button class="btn-icon btn-edit" onclick="editRow(this,'sach')"><i class="fa-solid fa-pen"></i></button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+
+      <!-- modal thêm sách -->
+      <div class="modal" id="modalSach">
+        <div class="modal-body">
+          <h3 class="modal-title">Thêm sách</h3>
+          <div class="form-grid">
+            <div class="form-group"><label>Mã sách</label><input id="s_ma" type="text" placeholder="VD: S010"></div>
+            <div class="form-group"><label>Tên sách</label><input id="s_ten" type="text"></div>
+            <div class="form-group"><label>Thể loại</label><input id="s_tl" type="text" placeholder="VD: Toán, Văn học..."></div>
+            <div class="form-group"><label>Năm XB</label><input id="s_nam" type="number" min="1990" max="2030"></div>
+            <div class="form-group"><label>Nhà XB</label><input id="s_nxb" type="text"></div>
+            <div class="form-group"><label>Tác giả</label><input id="s_tg" type="text"></div>
+            <div class="form-group"><label>Số lượng</label><input id="s_sl" type="number" min="1"></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" onclick="closeModal('modalSach')">Hủy</button>
+            <button class="btn btn-primary" onclick="addSach()">Lưu</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
   </div>
 
   <script src="script.js"></script>
