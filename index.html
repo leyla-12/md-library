@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Đăng nhập thư viện Mai Dịch</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Đăng nhập - Hệ thống thư viện THCS Mai Dịch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="login-page">
-  <div class="login-box">
-    <h2>HỆ THỐNG QUẢN LÝ THƯ VIỆN<br>THCS MAI DỊCH</h2>
-    <form action="docgia.html">
-      <input type="text" placeholder="Tên đăng nhập" required>
-      <input type="password" placeholder="Mật khẩu" required>
-      <button type="submit">Đăng nhập</button>
-    </form>
+<body class="login-body">
+  <div class="login-overlay"></div>
+  <div class="login-wrapper">
+    <div class="login-card">
+      <h1>HỆ THỐNG QUẢN LÝ THƯ VIỆN<br>THCS MAI DỊCH</h1>
+      <p class="login-sub">Dành cho quản trị viên và thủ thư</p>
+      <form action="docgia.html" method="get" class="login-form">
+        <label for="username">Tên đăng nhập</label>
+        <input id="username" name="u" type="text" placeholder="VD: thuthu01" required />
+        <label for="password">Mật khẩu</label>
+        <input id="password" name="p" type="password" placeholder="********" required />
+        <button type="submit" class="btn primary-btn full">Đăng nhập</button>
+        <p class="login-hint">Demo: nhập gì cũng vào được vì đây là giao diện tĩnh ❤️</p>
+      </form>
+    </div>
   </div>
+  <script src="script.js"></script>
 </body>
 </html>
