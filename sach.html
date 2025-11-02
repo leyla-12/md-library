@@ -1,95 +1,126 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Quản lý sách</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Quản lý sách - Thư viện Mai Dịch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Thư viện<br>Mai Dịch</h2>
-    <ul>
-      <li><a href="docgia.html">📘 Độc giả</a></li>
-      <li><a href="sach.html" class="active">📚 Sách</a></li>
-      <li><a href="phieumuon.html">📄 Phiếu mượn</a></li>
-      <li><a href="baocao.html">📊 Báo cáo</a></li>
-    </ul>
-    <div class="logout"><a href="index.html">↩ Đăng xuất</a></div>
-  </div>
-
-  <div class="main-content">
-    <h1 class="page-title">Quản lý thông tin sách</h1>
-    <p class="breadcrumb">Hệ thống &gt; Sách</p>
-
-    <div class="table-section">
-      <div class="filter-bar">
-        <input type="text" placeholder="Tìm theo tên sách / mã sách">
-        <select>
-          <option>Tất cả thể loại</option>
-          <option>Văn học</option>
-          <option>Khoa học</option>
-          <option>Lịch sử</option>
-        </select>
-        <button class="btn" onclick="openSach()">+ Thêm sách</button>
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-circle">MD</div>
+      <div class="logo-text">
+        <span>THƯ VIỆN</span>
+        <strong>MAI DỊCH</strong>
       </div>
+    </div>
+    <nav>
+      <a href="docgia.html"><span>📘</span> Độc giả</a>
+      <a href="sach.html" class="active"><span>📚</span> Sách</a>
+      <a href="phieumuon.html"><span>📝</span> Phiếu mượn</a>
+      <a href="baocao.html"><span>📊</span> Báo cáo</a>
+    </nav>
+    <a href="index.html" class="logout-link">↩ Đăng xuất</a>
+  </aside>
 
-      <table>
+  <main class="main-content">
+    <header class="page-header">
+      <div>
+        <h2>Quản lý thông tin sách</h2>
+        <p>Hệ thống &gt; Sách</p>
+      </div>
+    </header>
+
+    <section class="toolbar">
+      <div class="search-group">
+        <input type="text" id="searchSach" placeholder="Tìm theo tên sách / mã sách..." />
+        <button class="btn" onclick="searchTable('sachTable','searchSach',1)">🔍 Tìm kiếm</button>
+      </div>
+      <div class="filter-group">
+        <select id="theloaiFilter" onchange="filterByCategory()">
+          <option value="all">Tất cả thể loại</option>
+          <option value="Văn học">Văn học</option>
+          <option value="Khoa học">Khoa học</option>
+          <option value="Thiếu nhi">Thiếu nhi</option>
+        </select>
+        <button class="btn primary-btn" onclick="openModal('modalSach')">+ Thêm sách</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <table class="data-table" id="sachTable">
         <thead>
           <tr>
             <th>Mã sách</th>
             <th>Tên sách</th>
-            <th>Tác giả</th>
             <th>Thể loại</th>
             <th>Năm XB</th>
-            <th>Nhà XB</th>
+            <th>NXB</th>
+            <th>Tác giả</th>
             <th>Số lượng</th>
+            <th>Hành động</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr data-tl="Văn học">
             <td>S001</td>
-            <td>Harry Potter và Hòn đá phù thủy</td>
-            <td>J. K. Rowling</td>
+            <td>Harry Potter</td>
             <td>Văn học</td>
-            <td>1997</td>
+            <td>2010</td>
             <td>NXB Trẻ</td>
-            <td>15</td>
-          </tr>
-          <tr>
-            <td>S002</td>
-            <td>To Kill a Mockingbird</td>
-            <td>Harper Lee</td>
-            <td>Văn học</td>
-            <td>1960</td>
-            <td>NXB Văn học</td>
+            <td>J. K. Rowling</td>
             <td>10</td>
+            <td>
+              <button class="link-btn" onclick="editRow(this)">Sửa</button>
+              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
+            </td>
+          </tr>
+          <tr data-tl="Khoa học">
+            <td>S002</td>
+            <td>Vũ trụ quanh ta</td>
+            <td>Khoa học</td>
+            <td>2018</td>
+            <td>GDVN</td>
+            <td>Stephen Hawking</td>
+            <td>6</td>
+            <td>
+              <button class="link-btn" onclick="editRow(this)">Sửa</button>
+              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
+            </td>
+          </tr>
+          <tr data-tl="Thiếu nhi">
+            <td>S003</td>
+            <td>Những tấm lòng cao cả</td>
+            <td>Thiếu nhi</td>
+            <td>2005</td>
+            <td>Kim Đồng</td>
+            <td>Edmondo De Amicis</td>
+            <td>12</td>
+            <td>
+              <button class="link-btn" onclick="editRow(this)">Sửa</button>
+              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
+            </td>
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
+    </section>
+  </main>
 
-  <!-- POPUP THÊM SÁCH -->
-  <div id="dlg-sach" class="modal">
+  <!-- modal thêm sách -->
+  <div class="modal" id="modalSach">
     <div class="modal-content">
-      <h2>Thêm sách mới</h2>
-      <input type="text" placeholder="Tên sách">
-      <input type="text" placeholder="Tác giả">
-      <input type="text" placeholder="Thể loại">
-      <input type="number" placeholder="Năm xuất bản">
-      <input type="text" placeholder="Nhà xuất bản">
-      <input type="number" placeholder="Số lượng">
-      <div class="modal-footer">
-        <button class="btn secondary" onclick="closeSach()">Hủy</button>
-        <button class="btn">Lưu</button>
+      <h3>Thêm sách</h3>
+      <input type="text" id="ms" placeholder="Mã sách" />
+      <input type="text" id="ts" placeholder="Tên sách" />
+      <input type="text" id="tl" placeholder="Thể loại" />
+      <div class="modal-actions">
+        <button class="btn" onclick="closeModal('modalSach')">Hủy</button>
+        <button class="btn primary-btn" onclick="addSach()">Lưu</button>
       </div>
     </div>
   </div>
 
-  <script>
-    const dlgS = document.getElementById('dlg-sach');
-    function openSach(){ dlgS.style.display='flex'; }
-    function closeSach(){ dlgS.style.display='none'; }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
