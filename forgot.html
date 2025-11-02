@@ -4,31 +4,14 @@
   <meta charset="UTF-8" />
   <title>Quên mật khẩu - Thư viện THCS Mai Dịch</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://kit.fontawesome.com/3f55b9dd5f.js" crossorigin="anonymous"></script>
 </head>
 <body class="login-page">
   <div class="login-card">
-    <h1 class="login-title">Quên mật khẩu</h1>
-    <p class="login-sub">Nhập email nội bộ của bạn, hệ thống sẽ gửi hướng dẫn đặt lại.</p>
-    <form onsubmit="return sendEmail(event)">
-      <div class="login-group">
-        <i class="fa-solid fa-envelope"></i>
-        <input class="login-input" type="email" id="email" placeholder="vd: thuthu@maidich.edu.vn" required/>
-      </div>
-      <button class="login-btn" type="submit">Gửi hướng dẫn</button>
-    </form>
-    <p id="msg" style="margin-top:10px;font-size:13px;color:#16a34a;display:none;">Đã gửi! Vui lòng kiểm tra email.</p>
-
-    <p style="margin-top:14px;">
-      <a href="index.html" class="back-login"><i class="fa-solid fa-arrow-left"></i> Quay lại đăng nhập</a>
-    </p>
+    <h2>Quên mật khẩu</h2>
+    <p class="login-sub">Nhập email nội bộ, hệ thống sẽ gửi mã xác thực</p>
+    <input type="email" placeholder="vd: thuthu@maidich.edu.vn" id="email"/>
+    <button onclick="window.location='reset.html'">Gửi mã xác thực</button>
+    <a href="index.html" class="forgot-link">Quay lại đăng nhập</a>
   </div>
-
-  <script>
-    function sendEmail(e){
-      e.preventDefault();
-      document.getElementById("msg").style.display = "block";
-    }
-  </script>
 </body>
 </html>
