@@ -1,97 +1,121 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Quản lý phiếu mượn</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Quản lý phiếu mượn - Thư viện Mai Dịch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Thư viện<br>Mai Dịch</h2>
-    <ul>
-      <li><a href="docgia.html">📘 Độc giả</a></li>
-      <li><a href="sach.html">📚 Sách</a></li>
-      <li><a href="phieumuon.html" class="active">📄 Phiếu mượn</a></li>
-      <li><a href="baocao.html">📊 Báo cáo</a></li>
-    </ul>
-    <div class="logout"><a href="index.html">↩ Đăng xuất</a></div>
-  </div>
-
-  <div class="main-content">
-    <h1 class="page-title">Quản lý phiếu mượn – trả</h1>
-    <p class="breadcrumb">Hệ thống &gt; Phiếu mượn</p>
-
-    <div class="table-section">
-      <div class="filter-bar">
-        <input type="text" placeholder="Tìm theo mã phiếu / mã độc giả">
-        <input type="date">
-        <input type="date">
-        <select>
-          <option>Tất cả trạng thái</option>
-          <option>Đang mượn</option>
-          <option>Đã trả</option>
-          <option>Quá hạn</option>
-        </select>
-        <button class="btn" onclick="openPM()">+ Lập phiếu mượn</button>
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-circle">MD</div>
+      <div class="logo-text">
+        <span>THƯ VIỆN</span>
+        <strong>MAI DỊCH</strong>
       </div>
+    </div>
+    <nav>
+      <a href="docgia.html"><span>📘</span> Độc giả</a>
+      <a href="sach.html"><span>📚</span> Sách</a>
+      <a href="phieumuon.html" class="active"><span>📝</span> Phiếu mượn</a>
+      <a href="baocao.html"><span>📊</span> Báo cáo</a>
+    </nav>
+    <a href="index.html" class="logout-link">↩ Đăng xuất</a>
+  </aside>
 
-      <table>
+  <main class="main-content">
+    <header class="page-header">
+      <div>
+        <h2>Quản lý phiếu mượn - trả</h2>
+        <p>Hệ thống &gt; Phiếu mượn</p>
+      </div>
+    </header>
+
+    <section class="toolbar">
+      <div class="search-group">
+        <input type="text" id="searchPM" placeholder="Tìm theo mã phiếu hoặc tên độc giả..." />
+        <button class="btn" onclick="searchTable('pmTable','searchPM',1)">🔍 Tìm kiếm</button>
+      </div>
+      <div class="filter-group">
+        <select id="ttFilter" onchange="filterByStatus()">
+          <option value="all">Tất cả trạng thái</option>
+          <option value="dangmuon">Đang mượn</option>
+          <option value="datra">Đã trả</option>
+          <option value="quahan">Quá hạn</option>
+        </select>
+        <button class="btn primary-btn" onclick="openModal('modalPM')">+ Lập phiếu mượn</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <table class="data-table" id="pmTable">
         <thead>
           <tr>
             <th>Mã phiếu</th>
-            <th>Mã độc giả</th>
+            <th>Độc giả</th>
             <th>Ngày mượn</th>
             <th>Hạn trả</th>
             <th>Trạng thái</th>
             <th>Sách mượn</th>
+            <th>Hành động</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr data-tt="dangmuon">
             <td>PM001</td>
-            <td>DG001</td>
+            <td>Nguyễn Minh An (DG001)</td>
             <td>2025-11-01</td>
-            <td>2025-11-15</td>
-            <td>Đang mượn</td>
-            <td>Harry Potter (1), 1984 (1)</td>
+            <td>2025-11-10</td>
+            <td><span class="badge warning">Đang mượn</span></td>
+            <td>S001, S003</td>
+            <td>
+              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
+            </td>
           </tr>
-          <tr>
+          <tr data-tt="datra">
             <td>PM002</td>
-            <td>DG002</td>
+            <td>Trần Thu Hà (DG002)</td>
+            <td>2025-10-15</td>
             <td>2025-10-25</td>
-            <td>2025-11-05</td>
-            <td>Quá hạn</td>
-            <td>To Kill a Mockingbird (1)</td>
+            <td><span class="badge success">Đã trả</span></td>
+            <td>S002</td>
+            <td>
+              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
+            </td>
+          </tr>
+          <tr data-tt="quahan">
+            <td>PM003</td>
+            <td>Phạm Gia Huy (DG003)</td>
+            <td>2025-10-20</td>
+            <td>2025-10-27</td>
+            <td><span class="badge danger-badge">Quá hạn</span></td>
+            <td>S001</td>
+            <td>
+              <button class="link-btn danger" onclick="deleteRow(this)">Xóa</button>
+            </td>
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
+    </section>
+  </main>
 
-  <!-- POPUP LẬP PHIẾU MƯỢN -->
-  <div id="dlg-pm" class="modal">
+  <!-- modal phiếu mượn -->
+  <div class="modal" id="modalPM">
     <div class="modal-content">
-      <h2>Lập phiếu mượn</h2>
-      <input type="text" placeholder="Mã độc giả (VD: DG001)">
-      <input type="date" placeholder="Ngày mượn">
-      <input type="date" placeholder="Hạn trả">
-      <input type="text" placeholder="Nhập mã sách mượn (phân cách bằng dấu , )">
-      <select>
-        <option>Đang mượn</option>
-        <option>Đã trả</option>
-        <option>Quá hạn</option>
-      </select>
-      <div class="modal-footer">
-        <button class="btn secondary" onclick="closePM()">Hủy</button>
-        <button class="btn">Lưu phiếu</button>
+      <h3>Lập phiếu mượn</h3>
+      <input type="text" id="mp" placeholder="Mã phiếu" />
+      <input type="text" id="dgpm" placeholder="Mã độc giả / tên độc giả" />
+      <input type="date" id="ngaymuon" />
+      <input type="date" id="hantra" />
+      <input type="text" id="sachmuon" placeholder="Mã sách mượn (cách nhau dấu phẩy)" />
+      <div class="modal-actions">
+        <button class="btn" onclick="closeModal('modalPM')">Hủy</button>
+        <button class="btn primary-btn" onclick="addPM()">Lưu</button>
       </div>
     </div>
   </div>
 
-  <script>
-    const dlgPM = document.getElementById('dlg-pm');
-    function openPM(){ dlgPM.style.display='flex'; }
-    function closePM(){ dlgPM.style.display='none'; }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
