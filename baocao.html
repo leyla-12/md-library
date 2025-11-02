@@ -2,104 +2,102 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Báo cáo thống kê - Thư viện Mai Dịch</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Báo cáo thống kê - Thư viện THCS Mai Dịch</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/3f55b9dd5f.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-circle">MD</div>
-      <div class="logo-text">
-        <span>THƯ VIỆN</span>
-        <strong>MAI DỊCH</strong>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <small>THƯ VIỆN</small>
+        <h1>Trường THCS Mai Dịch</h1>
       </div>
-    </div>
-    <nav>
-      <a href="docgia.html"><span>📘</span> Độc giả</a>
-      <a href="sach.html"><span>📚</span> Sách</a>
-      <a href="phieumuon.html"><span>📝</span> Phiếu mượn</a>
-      <a href="baocao.html" class="active"><span>📊</span> Báo cáo</a>
-    </nav>
-    <a href="index.html" class="logout-link">↩ Đăng xuất</a>
-  </aside>
+      <nav class="nav">
+        <a href="docgia.html"><i class="fa-solid fa-users"></i> Độc giả</a>
+        <a href="sach.html"><i class="fa-solid fa-book"></i> Sách</a>
+        <a href="phieumuon.html"><i class="fa-solid fa-file-lines"></i> Phiếu mượn</a>
+        <a href="baocao.html" class="active"><i class="fa-solid fa-chart-line"></i> Báo cáo</a>
+      </nav>
+      <a href="index.html" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+    </aside>
 
-  <main class="main-content">
-    <header class="page-header">
-      <div>
-        <h2>Báo cáo thống kê mượn sách</h2>
-        <p>Hệ thống &gt; Báo cáo</p>
+    <main class="main">
+      <h2 class="page-title">Báo cáo & thống kê</h2>
+      <p class="breadcrumb">Hệ thống &gt; Báo cáo</p>
+
+      <!-- 3 ô thống kê -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label">Sách đang được mượn</p>
+          <p class="stat-value">27</p>
+          <p class="stat-sub">Tính đến hôm nay</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Độc giả mượn nhiều</p>
+          <p class="stat-value">8</p>
+          <p class="stat-sub">Hơn 5 lượt/kỳ</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Phiếu quá hạn</p>
+          <p class="stat-value" style="color:#b91c1c;">3</p>
+          <p class="stat-sub">Cần xử lý sớm</p>
+        </div>
       </div>
-    </header>
 
-    <section class="toolbar">
-      <div class="filter-group">
-        <label>Từ ngày:</label>
-        <input type="date" />
-        <label>Đến ngày:</label>
-        <input type="date" />
-        <button class="btn primary-btn">Lọc</button>
-        <button class="btn">Xuất Excel</button>
+      <!-- bảng báo cáo -->
+      <div class="card" style="margin-top:20px;">
+        <div class="card-header">
+          <h3 class="card-title">Danh sách sách đang mượn</h3>
+          <div class="filters">
+            <select id="bc_loai" onchange="filterBC()">
+              <option value="all">Tất cả</option>
+              <option value="dangmuon">Đang mượn</option>
+              <option value="quahan">Quá hạn</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table id="tableBC">
+            <thead>
+              <tr>
+                <th>Mã phiếu</th>
+                <th>Độc giả</th>
+                <th>Tên sách</th>
+                <th>Hạn trả</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-status="dangmuon">
+                <td>PM001</td>
+                <td>Nguyễn Minh An (9A1)</td>
+                <td>Văn học 6 - Tập 1</td>
+                <td>2025-11-15</td>
+                <td><span class="badge">Đang mượn</span></td>
+              </tr>
+              <tr data-status="dangmuon">
+                <td>PM002</td>
+                <td>Trần Thu Hà (8B2)</td>
+                <td>Bài tập Toán 7</td>
+                <td>2025-11-10</td>
+                <td><span class="badge" style="background:rgba(22,163,74,.14);color:#166534;">Đã trả</span></td>
+              </tr>
+              <tr data-status="quahan">
+                <td>PM003</td>
+                <td>Đỗ Thị Lan (GV)</td>
+                <td>Khám phá khoa học</td>
+                <td>2025-11-05</td>
+                <td><span class="badge" style="background:rgba(248,113,113,.1);color:#b91c1c;">Quá hạn</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </section>
 
-    <section class="card">
-      <h3 class="section-title">Sách đang được mượn</h3>
-      <p class="subtitle">Danh sách các đầu sách hiện vẫn đang được độc giả mượn</p>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Mã sách</th>
-            <th>Tên sách</th>
-            <th>Số lượt mượn</th>
-            <th>Hạn trả gần nhất</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>S001</td>
-            <td>Harry Potter</td>
-            <td>20</td>
-            <td>2025-11-10</td>
-          </tr>
-          <tr>
-            <td>S003</td>
-            <td>Những tấm lòng cao cả</td>
-            <td>15</td>
-            <td>2025-11-08</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+    </main>
+  </div>
 
-    <section class="card">
-      <h3 class="section-title">Độc giả mượn nhiều</h3>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Mã độc giả</th>
-            <th>Họ tên</th>
-            <th>Lớp</th>
-            <th>Số lượt mượn</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>DG001</td>
-            <td>Nguyễn Minh An</td>
-            <td>9A1</td>
-            <td>8</td>
-          </tr>
-          <tr>
-            <td>DG004</td>
-            <td>Đỗ Mỹ Lan</td>
-            <td>7A2</td>
-            <td>6</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
   <script src="script.js"></script>
 </body>
 </html>
